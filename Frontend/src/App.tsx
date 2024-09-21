@@ -6,5 +6,4 @@ function App() {
   </>);
 }
 
-export default App
-git a
+export default App  
