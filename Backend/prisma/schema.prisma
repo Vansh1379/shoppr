@@ -12,3 +12,17 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model user {
+  id Int @id @default(autoincrement())
+  name String 
+  password String 
+  email String @unique
+  phone_no Int
+}
+
+model product{
+  id Int @id @default(autoincrement())
+  name String
+
+}
