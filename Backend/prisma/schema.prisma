@@ -11,10 +11,10 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   name String 
-  password String 
   email String @unique
   phone_no Int
   address String?
+  password String 
   // orders Order[]
 }
 
@@ -24,6 +24,7 @@ model Product{
   description String
   catageory String
   price Float
+  img String?
   // orderItems OrderItem[]
   // cartItems CartItem[] 
 }
