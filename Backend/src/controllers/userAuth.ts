@@ -1,17 +1,54 @@
 import { NextFunction, Request } from "express"
 import { Response } from "express"
 import { loginValidation, signupValidation } from "../services/inputValidation";
+import { PrismaClient } from "@prisma/client";
 
+const jwt = require("jsonwebtoken");
+const prisma = new PrismaClient();
+
+// ...................................................................................................................................
 export const singupAuth = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
+        //zod
         const createPayload = req.body;
         const parsePayload = signupValidation.safeParse(createPayload);
         if (!parsePayload.success) {
             return res.status(404).json({
-                msg: "Invalid Input send by the bitch"
+                msg: "Invalid Input send by the bitch",
+                errors: parsePayload.error.errors
             });
         }
+
+        //checking wheather user already exist or not 
+        const userExist = await prisma.user.findFirst({
+            where: { email: req.body.email }
+        });
+        if (userExist) {
+            res.status(409).json({
+                msg: "User alreagy eaxist Please login bitch",
+            })
+        }
+        // if user doesn't exist already we will create a entry for him.
+
+        const newUser = await prisma.user.create({
+            data: {
+                name: createPayload.name,
+                email: createPayload.email,
+                phone_no: createPayload.phone_no,
+                password: createPayload.password
+            }
+        });
+
+        // adding jwt
+        const token = jwt.sign({
+            data: newUser.id
+        }, 'secret', { expiresIn: '5hr' });
+
+        res.status(201).json({
+            msg: "User Ceated Successfully",
+            token
+        });
     }
     catch (err) {
         res.status(500).json({
@@ -19,12 +56,9 @@ export const singupAuth = async (req: Request, res: Response, next: NextFunction
         })
         console.error(err);
     }
-    finally {
-        console.log("Signup Successful");
-    }
 };
 
-
+// .......................................................................................................................................................
 export const loginLogic = async (req: Request, res: Response, nest: NextFunction) => {
     try {
         const createPayload = req.body;
@@ -41,7 +75,7 @@ export const loginLogic = async (req: Request, res: Response, nest: NextFunction
         })
         console.error(err);
     }
-    finally{
+    finally {
         console.log("User Loged in Successfully")
     }
 }

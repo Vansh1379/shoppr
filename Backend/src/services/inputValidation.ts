@@ -3,7 +3,7 @@ import zod from "zod";
 const signupValidation = zod.object({
     name: zod.string(),
     email: zod.string().email(),
-    phone_no: zod.number().max(10),
+    phone_no: zod.string().regex(/^\d{10}$/),
     address: zod.string().optional(),
     password: zod.string().min(3),
 })
@@ -21,4 +21,4 @@ const productValidation = zod.object({
     img: zod.string().optional(),
 })
 
-export {signupValidation, loginValidation, productValidation};
+export { signupValidation, loginValidation, productValidation };
