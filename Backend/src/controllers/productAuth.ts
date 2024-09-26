@@ -5,8 +5,8 @@ import { productValidation } from "../services/inputValidation";
 
 const prisma = new PrismaClient();
 
-export const ProductAuth = async (req:Request, res:Response, next:NextFunction)=>{
-    try{
+export const ProductAuth = async (req: Request, res: Response, next: NextFunction) => {
+    try {
 
         const createPayload = req.body;
         const parsePayload = productValidation.safeParse(createPayload);
@@ -28,14 +28,14 @@ export const ProductAuth = async (req:Request, res:Response, next:NextFunction)=
             }
         });
 
-        if(newProduct){
+        if (newProduct) {
             res.status(200).json({
                 msg: "Product has been added"
             })
         }
 
     }
-    catch(err){
+    catch (err) {
         res.status(500).json({
             msg: "The product have been added to the Database"
         })
@@ -45,6 +45,30 @@ export const ProductAuth = async (req:Request, res:Response, next:NextFunction)=
 
 //..........................................................................................................
 
-export const GetAllProduct = async(req:Request, res:Response, next:NextFunction)=>{
+export const GetAllProduct = async (req: Request, res: Response, next: NextFunction) => {
+
+    const getProduct = await prisma.product.findMany({
+        select: {
+            name: true,
+            description: true,
+            catageory: true,
+            price: true,
+            img: true
+        }
+    })
+
+    if (getProduct) {
+        res.status(202).json({
+            msg: "You have got all the product listed",
+            getProduct
+        })
+    }
+
+}
+
+//.......................................................................................................
+
+export const deleteProduct = async (req:Request, res:Response, next:NextFunction)=>{
+
     
 }
