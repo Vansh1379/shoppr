@@ -61,7 +61,7 @@ export const singupAuth = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-// .......................................................................................................................................................
+//.......................................................................................................................................................
 export const loginLogic = async (req: Request, res: Response, nest: NextFunction) => {
     try {
 
@@ -105,5 +105,6 @@ export const loginLogic = async (req: Request, res: Response, nest: NextFunction
         console.log("User Loged in Successfully")
     }
 }
+
 
 //................................................................................................
