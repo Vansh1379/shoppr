@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/add_product", ProductAuth);
 router.get("/product", GetAllProduct);
-router.post("/delete", deleteProduct);
+router.delete("/delete", deleteProduct);
 
 export default router;
