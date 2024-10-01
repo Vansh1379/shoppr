@@ -1,12 +1,17 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { LandingPage } from './pages/LandingPage'
 import './App.css'
 
 function App() {
-  
-
   return (
-    <div className="flex justify-center items-center h-screen bg-blue-200">
-      <h1 className="text-4xl text-gray-800 font-bold">Hello, Tailwind CSS with React and TypeScript!</h1>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/signup' element={<></>} />
+          <Route path='/home' element={<LandingPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
