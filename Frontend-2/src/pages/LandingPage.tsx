@@ -1,3 +1,4 @@
+import { Fotter } from '../components/Fotter'
 import { LandingCompo } from '../components/LandingCompo'
 import { LandingProduct } from '../components/LandingProduct'
 import { Navbar } from '../components/Navbar'
@@ -10,6 +11,7 @@ export const LandingPage = () => {
             <RunningDiv />
             <LandingCompo />
             <LandingProduct />
+            <Fotter />
         </div>
     )
 }
