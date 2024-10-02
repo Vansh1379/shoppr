@@ -1,4 +1,5 @@
 import { LandingCompo } from '../components/LandingCompo'
+import { LandingProduct } from '../components/LandingProduct'
 import { Navbar } from '../components/Navbar'
 import { RunningDiv } from '../components/RunningDiv'
 
@@ -7,7 +8,8 @@ export const LandingPage = () => {
         <div className='overflow-hidden'>
             <Navbar />
             <RunningDiv />
-            <LandingCompo/>
+            <LandingCompo />
+            <LandingProduct />
         </div>
     )
 }

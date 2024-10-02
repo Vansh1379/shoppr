@@ -4,6 +4,7 @@ import img3 from "../assets/img3.png"
 import discount from "../assets/Discount.png"
 import { useNavigate } from "react-router-dom"
 import navratre from "../assets/navratre.png"
+import { LandingProduct } from "./LandingProduct"
 
 export const LandingCompo = () => {
     const navigate = useNavigate();
