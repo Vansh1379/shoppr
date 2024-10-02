@@ -2,7 +2,7 @@ import ECom from "../assets/Ecom.png"
 
 export const Navbar = () => {
     return (
-        <div className="border-b-2 flex items-center h-14 ">
+        <div className="border-b-4 border-gray-300 flex items-center h-16 ">
             <div className="flex items-center ml-10">
                 <div>
                     <img src={ECom} alt="E-commerce" className='h-10 w-13 ' />

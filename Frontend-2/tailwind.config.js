@@ -13,7 +13,7 @@ module.exports = {
         },
       },
       animation: {
-        'running-text': 'running-text 7s linear infinite',
+        'running-text': 'running-text 10s linear infinite',
       },
     },
   },
