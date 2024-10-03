@@ -1,5 +1,4 @@
 import { FilterDiv } from "./FilterDiv"
-import { Fotter } from "./Fotter"
 import { ProductPage } from "./ProductPage"
 
 export const ProductLanding = () => {
@@ -33,8 +32,6 @@ export const ProductLanding = () => {
                     </div>
                 </div>
             </div>
-            {/*    
-            */}
         </div>
     )
 }
