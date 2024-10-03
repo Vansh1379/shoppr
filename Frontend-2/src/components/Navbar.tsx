@@ -6,10 +6,15 @@ export const Navbar = () => {
     const redirect = (): void => {
         navigate('/signup');
     }
+    const redirect2 = (): void => {
+        navigate('/home');
+    }
+
+
     return (
         <div className="border-b-4 border-gray-300 flex items-center h-16 ">
             <div className="flex items-center ml-10">
-                <div>
+                <div onClick={redirect2}>
                     <img src={ECom} alt="E-commerce" className='h-10 w-13 ' />
                 </div>
                 <div className="flex pl-8">
