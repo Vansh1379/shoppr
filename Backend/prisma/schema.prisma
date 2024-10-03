@@ -24,9 +24,9 @@ model Product{
   description String
   catageory String
   price Float
-  orignalPrice Float?
-  quantity String?
-  discount Float?
+  orignalPrice Float? @default(100)
+  quantity String? @default("1 Pcs")
+  discount Float? @default(1000)
   img String?
   // orderItems OrderItem[]
   // cartItems CartItem[] 

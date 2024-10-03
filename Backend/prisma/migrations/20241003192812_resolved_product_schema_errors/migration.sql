@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Product" ALTER COLUMN "discount" SET DEFAULT 1000,
+ALTER COLUMN "orignalPrice" SET DEFAULT 100,
+ALTER COLUMN "quantity" SET DEFAULT '1 Pcs';
