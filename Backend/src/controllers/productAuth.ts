@@ -24,6 +24,9 @@ export const ProductAuth = async (req: Request, res: Response, next: NextFunctio
                 description: createPayload.description,
                 catageory: createPayload.catageory,
                 price: createPayload.price,
+                orignalPrice: createPayload.orignalPrice,
+                quantity: createPayload.quantity,
+                discount: createPayload.discount,
                 img: createPayload.img
             }
         });
@@ -53,6 +56,9 @@ export const GetAllProduct = async (req: Request, res: Response, next: NextFunct
             description: true,
             catageory: true,
             price: true,
+            orignalPrice: true,
+            quantity: true,
+            discount: true,
             img: true
         }
     })
