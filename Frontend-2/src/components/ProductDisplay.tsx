@@ -1,7 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import nivia from "../assets/nvivia.png";
+import axios from "axios";
 
 export const Product = () => {
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios({
+                    method: 'get',
+                    url: "http://localhost:3000/api/v1/pro/product",
+                });
+
+                console.log(`These are the fetched products ;  ${response.data}`)
+            }
+            catch (error) {
+                console.error(`This is the fucking error ${error}`);
+            }
+        }
+        fetchProducts();
+    }, []);
+
     const [detail] = useState([
         {
             name: "NIVEA Vit E Body Milk Lotion - 5 In 1 Complete...",
