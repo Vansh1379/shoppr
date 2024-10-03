@@ -2,8 +2,8 @@ import { NextFunction, Request } from "express"
 import { Response } from "express"
 import { loginValidation, signupValidation } from "../services/inputValidation";
 import { PrismaClient } from "@prisma/client";
+import jwt from 'jsonwebtoken';
 
-const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 
 // ...................................................................................................................................

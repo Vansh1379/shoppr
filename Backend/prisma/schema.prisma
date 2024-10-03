@@ -24,6 +24,9 @@ model Product{
   description String
   catageory String
   price Float
+  orignalPrice Float?
+  quantity String?
+  discount Float?
   img String?
   // orderItems OrderItem[]
   // cartItems CartItem[] 
