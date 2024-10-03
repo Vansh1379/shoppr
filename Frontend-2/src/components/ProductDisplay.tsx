@@ -34,16 +34,16 @@ export const Product = () => {
         <>
             <span className="flex">
                 {detail.map((item, index) => (
-                    <span key={index} >
-                        <div className="mr-10">
+                    <span key={index} className="" >
+                        <div className="mr-10 cursor-pointer">
                             <img src={item.imgLink} alt="" className="h-60" />
                         </div>
                         <div className="mt-2">
-                            <div className="w-48">{item.name}</div>
-                            <div className="text-base font-normal text-gray-500 flex justify-start mt-1">
+                            <div className="w-48 cursor-pointer">{item.name}</div>
+                            <div className="text-base font-normal text-gray-500 cursor-pointer flex justify-start mt-1">
                                 {item.quantity}
                             </div>
-                            <div className="flex items-center mt-4 mr-4 ">
+                            <div className="flex items-center mt-4 mr-4 cursor-pointer">
                                 <div className="text-base font-medium pr-2">₹{item.price}</div>
                                 <div className="text-sm font-normal text-gray-400 line-through pr-2">
                                     ₹{item.originalPrice}
