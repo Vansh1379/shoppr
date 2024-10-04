@@ -4,6 +4,7 @@ import './App.css'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
 import { Product } from './pages/Product'
+import { ProductId } from './pages/ProductId'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/home' element={<LandingPage />} />
           <Route path='product' element={<Product />} />
+          <Route path='/product/:id' element={<ProductId />} />
         </Routes>
       </BrowserRouter>
     </>

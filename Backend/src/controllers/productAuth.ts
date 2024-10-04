@@ -52,6 +52,7 @@ export const GetAllProduct = async (req: Request, res: Response, next: NextFunct
 
     const getProduct = await prisma.product.findMany({
         select: {
+            id: true,
             name: true,
             description: true,
             catageory: true,

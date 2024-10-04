@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductSkeleton from "./ProductLandingSkeleton";
+import ProductSkeleton from "./Skeleton";
+import { Link, useNavigate } from "react-router-dom";
 
 
 interface Product {
+    id: number;
     name: string;
     description: string;
     catageory: string;
@@ -19,9 +21,15 @@ const trimName = (name: string, maxlength: number) => {
     return `${name.substring(0, maxlength)}...`
 }
 
+
 export const Product = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
+
+    const LinkTo = (id: number): any => {
+        navigate(`/product/${id}`);
+    }
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -51,27 +59,29 @@ export const Product = () => {
     }
 
     return (
-        <div className="flex flex-wrap">
-            {products.map((item, index) => (
-                <div key={index} className="w-1/4 p-4">
-                    <div className="cursor-pointer">
-                        <img src={item.img} alt={item.name} className="h-60 w-60 object-fill" />
-                    </div>
-                    <div className="mt-2">
-                        <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 58)}</div>
-                        <div className="text-base font-normal text-gray-500 cursor-pointer mt-1">
-                            {item.quantity}
+        <Link to={`/product/`}>
+            <div className="flex flex-wrap">
+                {products.map((item) => (
+                    <div key={item.id} className="w-1/4 p-4" >
+                        <div className="cursor-pointer">
+                            <img src={item.img} alt={item.name} className="h-60 w-60 object-fill" />
                         </div>
-                        <div className="flex items-center mt-4 cursor-pointer">
-                            <div className="text-base font-medium pr-2">₹{item.price}</div>
-                            <div className="text-sm font-normal text-gray-400 line-through pr-2">
-                                ₹{item.orignalPrice}
+                        <div className="mt-2">
+                            <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 58)}</div>
+                            <div className="text-base font-normal text-gray-500 cursor-pointer mt-1">
+                                {item.quantity}
                             </div>
-                            <div className="text-green-600">{item.discount}% off</div>
+                            <div className="flex items-center mt-4 cursor-pointer">
+                                <div className="text-base font-medium pr-2">₹{item.price}</div>
+                                <div className="text-sm font-normal text-gray-400 line-through pr-2">
+                                    ₹{item.orignalPrice}
+                                </div>
+                                <div className="text-green-600">{item.discount}% off</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </Link>
     );
 };
