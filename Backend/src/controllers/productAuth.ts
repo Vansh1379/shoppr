@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { NextFunction, Request } from "express";
 import { Response } from "express";
 import { productValidation } from "../services/inputValidation";
@@ -75,7 +75,33 @@ export const GetAllProduct = async (req: Request, res: Response, next: NextFunct
 
 //.......................................................................................................
 
-export const deleteProduct = async (req:Request, res:Response, next:NextFunction)=>{
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
 
+
+}
+
+
+// ................................................................................................................
+
+export const ProductById = async (req: Request, res: Response, next: NextFunction) => {
+
+    let productID = Number(req.params.id);
+
+    try {
+
+        const getProductById = await prisma.product.findUnique({
+            where: {
+                id: productID,
+            }
+        });
+
+        if (getProductById) {
+            res.status(202).json({
+                getProductById
+            })
+        }
+    } catch(error){
+        console.error(`this is the fucking error ${error}`);
+    }
     
 }

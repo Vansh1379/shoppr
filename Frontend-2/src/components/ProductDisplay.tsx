@@ -42,6 +42,7 @@ export const Product = () => {
 
                 if (response.data.getProduct) {
                     setProducts(response.data.getProduct);
+                    console.log(response.data.getProduct[0].id, '--------------->');
                     setLoading(false);
                 }
             }
@@ -59,29 +60,30 @@ export const Product = () => {
     }
 
     return (
-        <Link to={`/product/`}>
-            <div className="flex flex-wrap">
-                {products.map((item) => (
-                    <div key={item.id} className="w-1/4 p-4" >
-                        <div className="cursor-pointer">
-                            <img src={item.img} alt={item.name} className="h-60 w-60 object-fill" />
+
+        <div className="flex flex-wrap">
+            {products.map((item) => (
+                <div key={item.id} className="w-1/4 p-4" onClick={() => LinkTo(item.id)} >
+
+                    <div className="cursor-pointer">
+                        <img src={item.img} alt={item.name} className="h-60 w-60 object-fill" />
+                    </div>
+                    <div className="mt-2">
+                        <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 58)}</div>
+                        <div className="text-base font-normal text-gray-500 cursor-pointer mt-1">
+                            {item.quantity}
                         </div>
-                        <div className="mt-2">
-                            <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 58)}</div>
-                            <div className="text-base font-normal text-gray-500 cursor-pointer mt-1">
-                                {item.quantity}
+                        <div className="flex items-center mt-4 cursor-pointer">
+                            <div className="text-base font-medium pr-2">₹{item.price}</div>
+                            <div className="text-sm font-normal text-gray-400 line-through pr-2">
+                                ₹{item.orignalPrice}
                             </div>
-                            <div className="flex items-center mt-4 cursor-pointer">
-                                <div className="text-base font-medium pr-2">₹{item.price}</div>
-                                <div className="text-sm font-normal text-gray-400 line-through pr-2">
-                                    ₹{item.orignalPrice}
-                                </div>
-                                <div className="text-green-600">{item.discount}% off</div>
-                            </div>
+                            <div className="text-green-600">{item.discount}% off</div>
                         </div>
                     </div>
-                ))}
-            </div>
-        </Link>
+                </div>
+            ))}
+        </div>
+
     );
 };
