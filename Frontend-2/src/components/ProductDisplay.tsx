@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductSkeleton from "./Skeleton";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 interface Product {
@@ -42,7 +42,6 @@ export const Product = () => {
 
                 if (response.data.getProduct) {
                     setProducts(response.data.getProduct);
-                    console.log(response.data.getProduct[0].id, '--------------->');
                     setLoading(false);
                 }
             }
