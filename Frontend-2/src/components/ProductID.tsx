@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 import axios from "axios";
 import ProductSkeleton from "./ProductIDSkeleton";
+import {ProductNotFound} from "./ProductNotFound";
 
 interface Rating {
   rating: number;
@@ -79,7 +80,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
   }
 
   if (!product) {
-    return <div>Product not found</div>;
+    return <div><ProductNotFound /></div>;
   }
 
   return (

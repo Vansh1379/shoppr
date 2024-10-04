@@ -3,7 +3,7 @@ import { ProductLanding } from "../components/ProductLanding"
 
 export const Product = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <ProductLanding />
     </div>

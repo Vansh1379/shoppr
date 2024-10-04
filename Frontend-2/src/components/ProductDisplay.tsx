@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductSkeleton from "./Skeleton";
 import { useNavigate } from "react-router-dom";
+import { ProductsNotFound } from "./ProductNotFound";
+
 
 
 interface Product {
@@ -49,6 +51,9 @@ export const Product = () => {
                 console.error(`This is the error: ${error}`);
                 setLoading(false);
             }
+            finally {
+                setLoading(false);
+            }
         }
 
         fetchProducts();
@@ -56,6 +61,10 @@ export const Product = () => {
 
     if (loading) {
         return <ProductSkeleton />;
+    }
+
+    if (products.length === 0 || !products) {
+        return <ProductsNotFound />
     }
 
     return (
