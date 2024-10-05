@@ -18,6 +18,9 @@ const productValidation = zod.object({
     description: zod.string(),
     catageory: zod.string(),
     price: zod.number(),
+    orignalPrice: zod.number(),
+    quanity: zod.string(),
+    discount: zod.number(),
     img: zod.string().optional(),
 })
 
