@@ -77,7 +77,7 @@ export const Product = () => {
                         <img src={item.img} alt={item.name} className="h-60 w-60 object-fill" />
                     </div>
                     <div className="mt-2">
-                        <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 58)}</div>
+                        <div className="w-full cursor-pointer font-medium" title={item.name}>{trimName(item.name, 55)}</div>
                         <div className="text-base font-normal text-gray-500 cursor-pointer mt-1">
                             {item.quantity}
                         </div>
