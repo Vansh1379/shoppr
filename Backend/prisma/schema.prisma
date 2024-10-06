@@ -15,7 +15,8 @@ model User {
   phone_no String
   address String?
   password String 
-  // orders Order[]
+  cart Cart? //one-to-one realtionship with cart 
+  orders Order[] //one to many relationship with order because one user can have multiple orders
 }
 
 model Product{
@@ -28,27 +29,36 @@ model Product{
   quantity String? @default("1 Pcs")
   discount Float? @default(1000)
   img String?
-  // orderItems OrderItem[]
-  // cartItems CartItem[] 
+  cartItem CartItem[]
+  orderItem OrderItem[]
 }
 
 model Order{
  id Int @id @default(autoincrement())
  userId Int
+ user User @relation(fields: [userId], references: [id]) 
+ items OrderItem[]
 }
 
 model OrderItem{
   id Int @id @default(autoincrement())
   orderId Int
-  profuctId Int
+  order Order @relation(fields: [orderId], references: [id])
+  profuctId Int 
+  product Product @relation(fields: [profuctId], references: [id])
 }
 
 model Cart{
   id Int @id @default(autoincrement())
   userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+  items CartItem[]
 }
 
 model CartItem{
   id Int @id @default(autoincrement())
   cartId Int 
+  cart Cart @relation(fields: [cartId], references: [id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
 }

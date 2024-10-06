@@ -34,7 +34,7 @@ export const Navbar = () => {
                     </div>
                 </div>
                 <div className="ml-4 flex items-center">
-                    <div>qq
+                    <div>
                         <button className="bg-pink-600 text-base text-white font-semibold px-3 py-2 border-gray-400 border rounded-md" onClick={redirect}>Sign in</button>
                     </div>
                     <div className="ml-10 cursor-pointer" onClick={redirect3}>
