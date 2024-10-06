@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductSkeleton from "./Skeleton";
+import ProductSkeleton from "./Skeletons/Skeleton";
 import { useNavigate } from "react-router-dom";
-import { ProductsNotFound } from "./ProductNotFound";
+import { ProductsNotFound } from "./Modals/ProductNotFound";
 
 
 

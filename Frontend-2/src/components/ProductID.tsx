@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 import axios from "axios";
-import ProductSkeleton from "./ProductIDSkeleton";
-import {ProductNotFound} from "./ProductNotFound";
+import ProductSkeleton from "./Skeletons/ProductIDSkeleton";
+import { ProductNotFound } from "./Modals/ProductNotFound";
 
 interface Rating {
   rating: number;
