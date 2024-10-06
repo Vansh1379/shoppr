@@ -17,7 +17,7 @@ export const singupAuth = async (req: Request, res: Response, next: NextFunction
 
         if (!parsePayload.success) {
             return res.status(404).json({
-                msg: "Invalid Input send by the bitch",
+                msg: "Invalid Input send by the bitch", 
                 errors: parsePayload.error.errors
             });
         }
@@ -39,6 +39,7 @@ export const singupAuth = async (req: Request, res: Response, next: NextFunction
                 name: createPayload.name,
                 email: createPayload.email,
                 phone_no: createPayload.phone_no,
+                address: createPayload.address,
                 password: createPayload.password
             }
         });
