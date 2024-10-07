@@ -7,57 +7,71 @@ import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 // ...................................................................................................................................
-export const singupAuth = async (req: Request, res: Response, next: NextFunction) => {
-
+export const signupAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
-
-        //zod
+        // Zod validation
         const createPayload = req.body;
         const parsePayload = signupValidation.safeParse(createPayload);
 
         if (!parsePayload.success) {
-            return res.status(404).json({
-                msg: "Invalid Input send by the bitch", 
+            return res.status(400).json({
+                msg: "Invalid input",
                 errors: parsePayload.error.errors
             });
         }
 
-        //checking wheather user already exist or not 
+        // Check if user already exists
         const userExist = await prisma.user.findFirst({
             where: { email: createPayload.email }
         });
 
         if (userExist) {
-            res.status(409).json({
-                msg: "User alreagy eaxist Please login bitch",
-            })
+            return res.status(409).json({
+                msg: "User already exists. Please login.",
+            });
         }
-        // if user doesn't exist already we will create a entry for him.
 
+        // Create new user
         const newUser = await prisma.user.create({
             data: {
                 name: createPayload.name,
                 email: createPayload.email,
                 phone_no: createPayload.phone_no,
                 address: createPayload.address,
-                password: createPayload.password
+                password: createPayload.password,
+                cart: {
+                    create: {} // This creates a new cart linked to the user
+                },
+                orders: {
+                    create: [] // This prepares the orders relation, but doesn't create any orders yet
+                }
+            },
+            include: {
+                cart: true,
+                orders: true
             }
         });
 
-        // adding jwt
+        // Generate JWT
         const token = jwt.sign({
             data: newUser.id
-        }, 'secret', { expiresIn: '5hr' });
+        }, 'secret', { expiresIn: '5h' });
 
         res.status(201).json({
-            msg: "User Ceated Successfully",
-            token
+            msg: "User created successfully",
+            token,
+            user: {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+                cartId: newUser.cart?.id
+            }
         });
-    }
-    catch (err) {
+
+    } catch (err) {
         res.status(500).json({
-            msg: "errors in singupAuth login in controller logic"
-        })
+            msg: "Error in signupAuth controller logic"
+        });
         console.error(err);
     }
 };
