@@ -58,7 +58,6 @@ export const signupAuth = async (req: Request, res: Response, next: NextFunction
         }, 'secret', { expiresIn: '5h' });
 
         res.status(201).json({
-            msg: "User created successfully",
             token,
             user: {
                 id: newUser.id,
@@ -80,7 +79,7 @@ export const signupAuth = async (req: Request, res: Response, next: NextFunction
 export const loginLogic = async (req: Request, res: Response, nest: NextFunction) => {
     try {
 
-        //zod 
+        //zod
         const createPayload = req.body;
         const parsePayload = loginValidation.safeParse(createPayload);
 
@@ -120,6 +119,5 @@ export const loginLogic = async (req: Request, res: Response, nest: NextFunction
         console.log("User Loged in Successfully")
     }
 }
-
 
 //................................................................................................
