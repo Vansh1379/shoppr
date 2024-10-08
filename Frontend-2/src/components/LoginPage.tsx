@@ -39,7 +39,10 @@ export const LoginPage = () => {
             });
 
             console.log(respnonse.data);
+            const token = respnonse.data.token;
+            localStorage.setItem("token", token);
 
+            navigate('/home');
         }
 
         catch (error) {

@@ -104,7 +104,6 @@ export const loginLogic = async (req: Request, res: Response, nest: NextFunction
             }, "secret", { expiresIn: '5hr' });
 
             res.status(200).json({
-                msg: 'User have logged in succesfully',
                 token
             });
         }
