@@ -22,6 +22,6 @@ const productValidation = zod.object({
     quanity: zod.string(),
     discount: zod.number(),
     img: zod.string().optional(),
-})
+});
 
 export { signupValidation, loginValidation, productValidation };
