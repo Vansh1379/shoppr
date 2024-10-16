@@ -71,7 +71,6 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
         });
 
 
-
         res.status(200).json({ msg: "AllItems of the cart are these", cartItems: GetCartItem });
     } catch (error) {
         console.error(`This is fuck.. error caught in getcartItem ${error}`);
