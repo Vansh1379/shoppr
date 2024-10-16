@@ -49,6 +49,8 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
     try {
         const { cartId } = req.body;
 
+        console.log(cartId, "cardID")
+
         // checking whaether cart exist or not 
         const cartExist = await prisma.cart.findUnique({
             where: { id: cartId }
@@ -59,12 +61,14 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
         }
 
         // Getting all cart Items 
-        const GetCartItem = prisma.cartItem.findMany({
+        const GetCartItem = await prisma.cartItem.findMany({
             where: { cartId: cartId },
             select: {
                 productId: true
             }
         });
+
+        console.log(GetCartItem, 'GetCartItem')
 
 
         res.status(200).json({ msg: "AllItems of the cart are these", cartItems: GetCartItem });
