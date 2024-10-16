@@ -8,6 +8,8 @@ interface AddToCartBody {
     productId: number;
 }
 
+//.............................................................................................................
+
 export const AddToCart = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { cartId, productId } = req.body as AddToCartBody;
@@ -45,6 +47,8 @@ export const AddToCart = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
+// ....................................................................................................................
+
 export const GetCartItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { cartId } = req.body;
@@ -63,12 +67,9 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
         // Getting all cart Items 
         const GetCartItem = await prisma.cartItem.findMany({
             where: { cartId: cartId },
-            select: {
-                productId: true
-            }
+            select: { productId: true }
         });
 
-        console.log(GetCartItem, 'GetCartItem')
 
 
         res.status(200).json({ msg: "AllItems of the cart are these", cartItems: GetCartItem });
@@ -77,3 +78,30 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 };
+
+// ......................................................................................................................
+
+export const GetCartId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { userId } = req.body;
+
+        // checking wheather user exist or not 
+        const userExist = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!userExist) {
+            return res.status(404).json({ msg: "user donot Exist" });
+        }
+
+        const cartId = await prisma.cart.findFirst({
+            where: { userId: userId },
+            select: { id: true }
+        });
+
+        return res.status(200).json({ msg: "this is cartid of user", cartId })
+    } catch (error) {
+        console.error(`this is error in getcartId ${error}`);
+        next(error);
+    }
+}
