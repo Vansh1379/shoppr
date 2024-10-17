@@ -15,10 +15,9 @@ export const CartDisplay = () => {
                         userId: id // Send user ID as a query parameter
                     }
                 });
-
                 // Check if response and cartId exist
                 if (response.data && response.data.cartId) {
-                    console.log(response.data.cartId.id); // Log the cartId's id
+                    console.log(response.data.cartId.id); // Log the cartId's 
                     setCartid(response.data.cartId.id);  // Store cartId's id in state
                 } else {
                     console.error('Invalid response format:', response);
