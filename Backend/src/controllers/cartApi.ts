@@ -51,9 +51,7 @@ export const AddToCart = async (req: Request, res: Response, next: NextFunction)
 
 export const GetCartItem = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { cartId } = req.body;
-
-        console.log(cartId, "cardID")
+        const cartId = parseInt(req.params.cartId);
 
         // checking whaether cart exist or not 
         const cartExist = await prisma.cart.findUnique({
@@ -82,15 +80,16 @@ export const GetCartItem = async (req: Request, res: Response, next: NextFunctio
 
 export const GetCartId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { userId } = req.body;
+        const userId = parseInt(req.params.userId);
+        console.log(userId);
 
-        // checking wheather user exist or not 
+        // Check whether user exists or not
         const userExist = await prisma.user.findUnique({
             where: { id: userId }
         });
 
         if (!userExist) {
-            return res.status(404).json({ msg: "user donot Exist" });
+            return res.status(404).json({ msg: "User does not exist" });
         }
 
         const cartId = await prisma.cart.findFirst({
@@ -98,9 +97,9 @@ export const GetCartId = async (req: Request, res: Response, next: NextFunction)
             select: { id: true }
         });
 
-        return res.status(200).json({ msg: "this is cartid of user", cartId })
+        return res.status(200).json({ msg: "This is the cartId of the user", cartId });
     } catch (error) {
-        console.error(`this is error in getcartId ${error}`);
+        console.error(`Error in GetCartId: ${error}`);
         next(error);
     }
-}
+};
