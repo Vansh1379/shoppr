@@ -2,9 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 export const CartDisplay = () => {
-    const { id } = useParams<{ id: string }>(); // Extract `id` from URL params
-    const [cartId, setCartId] = useState<number | null>(null); // To store cartId
+    const { id } = useParams<{ id: string }>();
+    const [cartId, setCartId] = useState<number | null>(null);
 
     useEffect(() => {
         const getCartId = async () => {
@@ -25,6 +26,23 @@ export const CartDisplay = () => {
             getCartId();
         }
     }, [id]);
+
+    useEffect(() => {
+        const getProductsData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/v1/cart/cartItem/${cartId}`);
+
+                if (response) {
+                    console.log(response.data.cartItems);
+                }
+            } catch (error) {
+                console.error(`error fetching the product id's ${error}`);
+
+            }
+        };
+
+        getProductsData();
+    }, [cartId]);
 
     return (
         <div>
