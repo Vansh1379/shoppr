@@ -8,13 +8,12 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 export const LoginNavbar: React.FC = () => {
-    const [token, setToken] = useState<string | null>(null);
+   
     const [userId, setUserId] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
-        setToken(storedToken);
 
         if (storedToken) {
             try {

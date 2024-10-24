@@ -3,6 +3,8 @@ import { Navbar } from "./Navbar";
 import axios from "axios";
 import ProductSkeleton from "./Skeletons/ProductIDSkeleton";
 import { ProductNotFound } from "./Modals/ProductNotFound";
+import { LoginNavbar } from "./LoginNavbar";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface Rating {
   rating: number;
@@ -24,6 +26,10 @@ interface ProductIdProp {
   id: number;
 }
 
+interface CustomJwtPayload extends JwtPayload {
+  data?: string;
+}
+
 const StarRating = ({ rating }: Rating) => {
   return (
     <div className="flex items-center">
@@ -38,7 +44,44 @@ const StarRating = ({ rating }: Rating) => {
 
 export const ProductID = ({ id }: ProductIdProp) => {
   const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true); // for skeleton 
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // for login navbar
+  const [addTocart, setAddTocart] = useState<boolean>(false);
+
+  // to get token from localStorage
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  // functio  to add to cart item in cartItem tabke
+  const HandleAddToCart = async () => {
+    setAddTocart(true);
+    const token = localStorage.getItem('token');
+
+    // if user is logged in then only they can add to cart
+    if(!token){
+      alert('please login befor adding to cart');
+      setAddTocart(false);
+      return;
+    }
+
+    const decodeToken = jwtDecode<CustomJwtPayload>(token);
+    const responseForCartId = await axios.get(`http://localhost:3000/api/v1/cart/cartid/${decodeToken}`);
+    console.log(responseForCartId);
+
+    try{
+      const response = await axios.post('http://localhost:3000/api/v1/cart',{
+        'cartId' : responseForCartId,
+        'productId': id,
+      });
+
+      console.log(response);
+      alert('THe product has been added to your cart Thanks for shooping');
+    } catch(error){
+      console.error(`This is the error in AddToCart function ${error}`);
+    }
+  }
 
   useEffect(() => {
     const getProduct = async () => {
@@ -46,31 +89,23 @@ export const ProductID = ({ id }: ProductIdProp) => {
       try {
         const response = await axios.get(`http://localhost:3000/api/v1/pro/product/${id}`);
 
-        console.log('Full response:', response.data);
+        // console.log('Full response:', response.data);
 
         if (response.data.getProductById) {
-          console.log('Product data:', JSON.stringify(response.data.getProductById, null, 2));
+          // console.log('Product data:', JSON.stringify(response.data.getProductById, null, 2));
           setProduct(response.data.getProductById);
         } else {
           console.log('No product data found in response');
         }
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Axios error:', {
-            message: error.message,
-            response: error.response?.data,
-            status: error.response?.status
-          });
-        } else {
           console.error('Error fetching product:', error);
-        }
       } finally {
         setLoading(false);
       }
     }
 
     if (id) {
-      console.log('Fetching product with ID:', id);
+      // console.log('Fetching product with ID:', id);
       getProduct();
     }
   }, [id]);
@@ -86,7 +121,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
   return (
     <div className="flex flex-col min-h-screen ">
       <div className="bg-white">
-        <Navbar />
+        {isLoggedIn ? <LoginNavbar /> : <Navbar />}
       </div>
 
       <div className="bg-white mx-20 min-h-screen">
@@ -125,7 +160,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
                   ))}
                 </div>
               </div>
-              <button className="w-1/2 bg-pink-500 text-white py-2 rounded-full text-sm">
+              <button className="w-1/2 bg-pink-500 text-white py-2 rounded-full text-sm hover:text-black hover:border-2 border-black" onClick={HandleAddToCart}>
                 Add to Bag
               </button>
             </div>
