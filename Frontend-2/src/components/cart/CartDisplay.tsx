@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 interface CartItem {
     productId: number
 }
@@ -23,7 +24,9 @@ export const CartDisplay = () => {
     const [cartId, setCartId] = useState<number | null>(null);
     const [cartItem, setCartItems] = useState<CartItem[]>([]);
     const [product, setProduct] = useState<Product[]>([]);
-    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false); 
+    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false);
+    
+    
 
     useEffect(() => {
         const getCartId = async () => {
@@ -53,7 +56,7 @@ export const CartDisplay = () => {
                 if (response) {
                     // console.log(response.data.cartItems[0].productId);
                     setCartItems(response.data.cartItems);
-                    setIsCartItemsLoaded(true); 
+                    setIsCartItemsLoaded(true);
                 }
             } catch (error) {
                 console.error(`error fetching the product id's ${error}`);
@@ -61,7 +64,7 @@ export const CartDisplay = () => {
         };
 
         if (cartId) {
-            setIsCartItemsLoaded(false); 
+            setIsCartItemsLoaded(false);
             getProductsData();
         }
     }, [cartId]);
@@ -86,7 +89,12 @@ export const CartDisplay = () => {
         if (isCartItemsLoaded && cartItem.length > 0) {
             getProductDetails();
         }
-    }, [cartItem, isCartItemsLoaded]); 
+    }, [cartItem, isCartItemsLoaded]);
+
+    const handleRemoveCartItem = async () => {
+
+    }
+
 
     return (
         <div>
@@ -103,7 +111,10 @@ export const CartDisplay = () => {
                                 <div className='text-green-600'>{product.discount}% off</div>
                             </div>
                             <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
-                            <div className='ml-80'><button className='bg-pink-400  px-20 py-1 rounded-2xl text-white hover:border-2 border-black'>Order now</button></div>
+                            <div className='flex '>
+                                <div className='pl-72'><button className='bg-pink-500  px-20 py-1 rounded-2xl text-white hover:border-2 border-black'>Order now</button></div>
+                                <div className='text-red-400 text-lg font-sans font-medium pl-7 pr-3' onClick={handleRemoveCartItem}>REMOVE</div>
+                            </div>
                         </div>
                     </div>
                 </span>

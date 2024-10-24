@@ -5,6 +5,8 @@ import ProductSkeleton from "./Skeletons/ProductIDSkeleton";
 import { ProductNotFound } from "./Modals/ProductNotFound";
 import { LoginNavbar } from "./LoginNavbar";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Rating {
   rating: number;
@@ -48,38 +50,44 @@ export const ProductID = ({ id }: ProductIdProp) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // for login navbar
   const [addTocart, setAddTocart] = useState<boolean>(false);
 
+  const notify = () => toast("Product has been added to cart succesfully !");
+
   // to get token from localStorage
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
 
-  // functio  to add to cart item in cartItem tabke
+  // functio  to add to cart item in cartItem table
   const HandleAddToCart = async () => {
     setAddTocart(true);
     const token = localStorage.getItem('token');
 
     // if user is logged in then only they can add to cart
-    if(!token){
+    if (!token) {
       alert('please login befor adding to cart');
       setAddTocart(false);
       return;
     }
 
-    const decodeToken = jwtDecode<CustomJwtPayload>(token);
-    const responseForCartId = await axios.get(`http://localhost:3000/api/v1/cart/cartid/${decodeToken}`);
-    console.log(responseForCartId);
+    try {
+      const decodeToken = jwtDecode<CustomJwtPayload>(token);
+      const userId = decodeToken.data;
 
-    try{
-      const response = await axios.post('http://localhost:3000/api/v1/cart',{
-        'cartId' : responseForCartId,
-        'productId': id,
+      const responseForCartId = await axios.get(`http://localhost:3000/api/v1/cart/cartid/${userId}`);
+      const cartId = responseForCartId.data.cartId.id;
+
+      const response = await axios.post('http://localhost:3000/api/v1/cart/', {
+        cartId: cartId,
+        productId: id,
       });
 
       console.log(response);
-      alert('THe product has been added to your cart Thanks for shooping');
-    } catch(error){
+      // alert('THe product has been added to your cart Thanks for shooping');
+      notify();
+    } catch (error) {
       console.error(`This is the error in AddToCart function ${error}`);
+      toast.error("Error Backend is down!");
     }
   }
 
@@ -98,7 +106,8 @@ export const ProductID = ({ id }: ProductIdProp) => {
           console.log('No product data found in response');
         }
       } catch (error) {
-          console.error('Error fetching product:', error);
+        console.error('Error fetching product:', error);
+        toast.error("Error Backend is down!");
       } finally {
         setLoading(false);
       }
@@ -167,6 +176,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

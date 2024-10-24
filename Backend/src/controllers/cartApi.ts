@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, NextFunction } from "express";
 
+
 const prisma = new PrismaClient();
 
 interface AddToCartBody {
@@ -103,3 +104,11 @@ export const GetCartId = async (req: Request, res: Response, next: NextFunction)
         next(error);
     }
 };
+
+export const DeleteCartItem = async(req:Request, res:Response, next:NextFunction) =>{
+    try{
+        
+    } catch(error){
+        console.log(`this is error in deletecartitem ${error}`);
+    }
+}
