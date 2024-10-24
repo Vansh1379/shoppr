@@ -6,10 +6,24 @@ interface CartItem {
     productId: number
 }
 
+interface Product {
+    id: number;
+    name: string;
+    description: string;
+    catageory: string;
+    price: number;
+    orignalPrice?: number;
+    quantity?: string;
+    discount?: number;
+    img?: string;
+}
+
 export const CartDisplay = () => {
     const { id } = useParams<{ id: string }>();
     const [cartId, setCartId] = useState<number | null>(null);
     const [cartItem, setCartItems] = useState<CartItem[]>([]);
+    const [product, setProduct] = useState<Product[]>([]);
+    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false); 
 
     useEffect(() => {
         const getCartId = async () => {
@@ -37,39 +51,63 @@ export const CartDisplay = () => {
                 const response = await axios.get(`http://localhost:3000/api/v1/cart/cartItem/${cartId}`);
 
                 if (response) {
-                    console.log(response.data.cartItems[0].productId);
+                    // console.log(response.data.cartItems[0].productId);
                     setCartItems(response.data.cartItems);
+                    setIsCartItemsLoaded(true); 
                 }
             } catch (error) {
                 console.error(`error fetching the product id's ${error}`);
-
             }
         };
 
-        getProductsData();
+        if (cartId) {
+            setIsCartItemsLoaded(false); 
+            getProductsData();
+        }
     }, [cartId]);
 
+    useEffect(() => {
+        const getProductDetails = async () => {
+            try {
+                const productPromise = cartItem.map(items =>
+                    axios.get(`http://localhost:3000/api/v1/pro/product/${items.productId}`)
+                );
 
+                const productResponse = await Promise.all(productPromise);
+                const productDetail = productResponse.map(response => response.data.getProductById);
+                console.log(productDetail);
+                setProduct(productDetail);
+
+            } catch (error) {
+                console.error(`error in fetching product detail ${error}`);
+            }
+        }
+
+        if (isCartItemsLoaded && cartItem.length > 0) {
+            getProductDetails();
+        }
+    }, [cartItem, isCartItemsLoaded]); 
 
     return (
         <div>
-            <span className='bg-gray-800 '>
-                <div className='flex  border rounded-lg  border-gray-300 py-4 mx-5 w-[850px] mt-3 cursor-pointer'>
-                    <div className='pl-10'><img src="https://imgs.search.brave.com/CxSddFIVMvHAbq_ai9YYglj1reC0nSqEnUevIsQd_LM/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY3RmYXNzZXRz/Lm5ldC9ocmx0eDEy/cGw4aHEvNk1pTWl6/Q3FacjFEam1vQThN/MnBSNy9hYjUyZmEz/M2U5YjNjMjAyNjEy/ZDMxYWRmZTUyMWQy/ZS9JcmlkZWNlbnQt/VGh1bWJuYWlsLmpw/Zw" alt="hello" className='h-[130px] w-[180px]' /></div>
-                    <div className='pl-5'>
-                        <div className='text-base font-medium text-gray-600'>VBUYZ Women Kurwjvbrhjvbjvbwbbvhjwbvjhbrwhvbhjvbrhvjwta Pant Set</div>
-                        <div className='text-sm mt-2 text-gray-400 font-medium font-sans'>  Size: M</div>
-                        <div className='flex items-center mt-2'>
-                            <div className='text-base font-medium pr-2'>₹9000</div>
-                            <div className='text-sm font-normal text-gray-400 line-through pr-2'>₹400</div>
-                            <div className='text-green-600'>75% off</div>
+            {product.map((product) => (
+                <span key={product.id} className='bg-gray-800'>
+                    <div className='flex  border rounded-lg  border-gray-300 py-4 mx-5 w-[850px] mt-3 cursor-pointer'>
+                        <div className='pl-10'><img src={product.img} alt="hello" className='h-[130px] w-[180px]' /></div>
+                        <div className='pl-5'>
+                            <div className='text-base font-medium text-gray-600'>{product.name}</div>
+                            <div className='text-sm mt-2 text-gray-400 font-medium font-sans'>{product.quantity}</div>
+                            <div className='flex items-center mt-2'>
+                                <div className='text-base font-medium pr-2'>₹{product.price}</div>
+                                <div className='text-sm font-normal text-gray-400 line-through pr-2'>₹{product.orignalPrice}</div>
+                                <div className='text-green-600'>{product.discount}% off</div>
+                            </div>
+                            <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
+                            <div className='ml-80'><button className='bg-pink-400  px-20 py-1 rounded-2xl text-white hover:border-2 border-black'>Order now</button></div>
                         </div>
-                        <div className='text-gray-600 mt-1 font-medium'>Catageory :- Dress</div>
-                        <div className='ml-80'><button className='bg-pink-400  px-20 py-1 rounded-2xl'>Order now</button></div>
                     </div>
-                </div>
-            </span>
-            
+                </span>
+            ))}
         </div>
     );
 };
