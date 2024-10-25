@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import ECom from "../assets/Ecom.png";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { ProfileModal } from "./Modals/ProfileModal";
 
 interface CustomJwtPayload extends JwtPayload {
     data?: string;
 }
 
 export const LoginNavbar: React.FC = () => {
-   
+
     const [userId, setUserId] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,6 +38,11 @@ export const LoginNavbar: React.FC = () => {
         }
     }
 
+    const handleProfileModal = (): void => {
+        setIsModalOpen(true);
+    }
+
+
     return (
         <>
             <div className="border-b-4 border-gray-300 flex items-center h-16 ">
@@ -61,7 +68,7 @@ export const LoginNavbar: React.FC = () => {
 
                 <div className="ml-4 flex items-center">
                     <div>
-                        <button className="bg-pink-600 text-base text-white font-semibold px-3 py-2 border-gray-400 border rounded-md" >Profile</button>
+                        <button className="bg-pink-600 text-base text-white font-semibold px-3 py-2 border-gray-400 border rounded-md" onClick={handleProfileModal}>Profile</button>
                     </div>
                     <div className="ml-10 cursor-pointer" onClick={redirect3}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -76,7 +83,7 @@ export const LoginNavbar: React.FC = () => {
                     || Free Shipping on All Orders Above ₹299 || Free Shipping on All Orders Above ₹299 || Free Shipping on All Orders Above ₹299 || Free Shipping on All Orders Above ₹299 ||
                 </pre>
             </div>
-
+            {isModalOpen && <ProfileModal onClose={() => setIsModalOpen(false)} />}
         </>
     )
 }

@@ -120,3 +120,28 @@ export const loginLogic = async (req: Request, res: Response, nest: NextFunction
 }
 
 //................................................................................................
+
+export const UserDetail = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = parseInt(req.params.id);
+
+        const userDetails = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { name: true, email: true, phone_no: true, address: true }
+        });
+
+        if (!userDetails) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        return res.status(200).json({
+            msg: "This is the cartId of the user",
+            data: userDetails
+        });
+    } catch (error) {
+        console.error(`This is the error while hetting user details ${error}`);
+        return res.status(500).json({
+            error: "Internal server error"
+        });
+    }
+}
