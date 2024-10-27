@@ -25,7 +25,7 @@ export const CartDisplay = () => {
     const [cartId, setCartId] = useState<number | null>(null);
     const [cartItem, setCartItems] = useState<CartItem[]>([]);
     const [product, setProduct] = useState<Product[]>([]);
-    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false);
+    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false);    
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export const CartDisplay = () => {
                             </div>
                             <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
                             <div className='flex'>
-                                <div className='pl-72'><button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black'>Order now</button></div>
+                                <div className='pl-72'><button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>Order now</button></div>
                                 <div className='text-red-400 text-lg font-sans font-medium pl-7 pr-3' onClick={handleRemoveCartItem}>REMOVE</div>
                             </div>
                         </div>

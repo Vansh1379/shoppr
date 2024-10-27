@@ -2,6 +2,7 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ProfileModalProps {
     onClose: () => void;
@@ -60,6 +61,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
         fetchUserDetails();
     }, [userid]);
 
+    const handleLogoutLogic = (): void => {
+        localStorage.clear();
+        navigate('/');
+        alert("Logged Out Succesfully");
+    }
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -110,11 +117,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
                     </div>
                 </div>
 
-                <div className="mt-4 flex justify-end">
+                <div className="mt-4 flex justify-evenly ml-16">
+                    <button className='text-red-400 font-medium border rounded text-sm px-4 py-2 mr-40 hover:bg-red-500 hover:text-black transition-colors' onClick={handleLogoutLogic}>
+                        LOG OUT
+                    </button>
                     <button
                         type="button"
                         onClick={handleOrdersClick}
-                        className="bg-pink-500 text-white text-sm font-medium px-4 py-2 rounded hover:bg-pink-600 transition-colors flex items-center space-x-1"
+                        className="bg-pink-500 text-white text-sm font-medium px-4 py-2  ml-24 rounded hover:bg-pink-600 transition-colors flex items-center space-x-1"
                     >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
