@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ECom from "../assets/Ecom.png";
+import shoppr from "../assets/Shoppr.png"
 import { useNavigate } from "react-router-dom";
 import { SigninModal } from "./Modals/SigninModal";
 
@@ -25,10 +25,9 @@ export const Navbar: React.FC = () => {
     return (
         <>
             <div className="border-b-4 border-gray-300 flex items-center h-16 ">
-                <div className="flex items-center ml-10">
+                <div className="flex items-center ml-10 ">
                     <div onClick={redirect2} className="cursor-pointer">
-                        <img src={ECom} alt="E-comm
-                                    erce" className='h-10 w-13 ' />
+                        <img src={shoppr} alt="Shoppr" className='h-[100px] w-[100px] ' />
                     </div>
                     <div className="flex pl-8 cursor-pointer">
                         <div className="text-base text-black font-semibold  m-0 p-8 hover:text-pink-500">Catagories</div>

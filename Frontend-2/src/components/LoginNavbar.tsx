@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ECom from "../assets/Ecom.png";
+import shoppr from "../assets/Shoppr.png";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { ProfileModal } from "./Modals/ProfileModal";
@@ -48,7 +48,7 @@ export const LoginNavbar: React.FC = () => {
             <div className="border-b-4 border-gray-300 flex items-center h-16 ">
                 <div className="flex items-center ml-10">
                     <div onClick={redirect2} className="cursor-pointer">
-                        <img src={ECom} alt="E-comm
+                        <img src={shoppr} alt="E-comm
                                     erce" className='h-10 w-13 ' />
                     </div>
                     <div className="flex pl-8 cursor-pointer">
