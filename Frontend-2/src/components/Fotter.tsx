@@ -80,7 +80,7 @@ export const Fotter = () => {
                     <p className='text-sm px-2'>Cancellation Policy</p>
                     <p className='text-sm px-2'>Privacy Policy</p>
                 </div>
-                <div className='text-sm flex items-center justify-center mt-3'>© 2024 E-Commerce LIMITED All Rights Reserved With <p className='font-semibold pl-1'>Vansh Kalra</p></div>
+                <div className='text-sm flex items-center justify-center mt-3'>© 2024 Shoppr LIMITED All Rights Reserved With <p className='font-semibold pl-1'>Vansh Kalra</p></div>
             </div>
         </>
     )
