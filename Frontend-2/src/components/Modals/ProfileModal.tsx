@@ -2,7 +2,6 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
 
 interface ProfileModalProps {
     onClose: () => void;

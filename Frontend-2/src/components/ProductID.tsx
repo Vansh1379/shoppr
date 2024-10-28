@@ -48,7 +48,6 @@ export const ProductID = ({ id }: ProductIdProp) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true); // for skeleton 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // for login navbar
-  const [addTocart, setAddTocart] = useState<boolean>(false);
 
   const notify = () => toast("Product has been added to cart succesfully !");
 
@@ -60,13 +59,12 @@ export const ProductID = ({ id }: ProductIdProp) => {
 
   // functio  to add to cart item in cartItem table
   const HandleAddToCart = async () => {
-    setAddTocart(true);
+
     const token = localStorage.getItem('token');
 
     // if user is logged in then only they can add to cart
     if (!token) {
       alert('please login befor adding to cart');
-      setAddTocart(false);
       return;
     }
 
