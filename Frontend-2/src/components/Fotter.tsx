@@ -3,9 +3,9 @@ export const Fotter = () => {
     return (
         <>
             <div className='flex items-center bg-gray-400 pb-5 mt-5' >
-                <div className='ml-10 mt-10'>
+                <div className='ml-10 mt-8'>
                     <div>
-                        <img src={shoppr} alt='E-commerce logo' className='h-10 w-20' />
+                        <img src={shoppr} alt='E-commerce logo' className='h-[90px] w-[90px]' />
                     </div>
                     <div className='mt-3'>
                         <ul>
