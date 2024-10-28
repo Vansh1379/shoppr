@@ -42,13 +42,12 @@ export const LoginNavbar: React.FC = () => {
         setIsModalOpen(true);
     }
 
-
     return (
         <>
             <div className="border-b-4 border-gray-300 flex items-center h-16 ">
                 <div className="flex items-center ml-10">
                     <div onClick={redirect2} className="cursor-pointer">
-                        <img src={shoppr} alt="shoppr" className='h-24 ' />
+                        <img src={shoppr} alt="shoppr" className='h-24' />
                     </div>
                     <div className="flex pl-8 cursor-pointer">
                         <div className="text-base text-black font-semibold  m-0 p-8 hover:text-pink-500">Catagories</div>
