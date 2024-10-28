@@ -52,7 +52,7 @@ export const Signin = () => {
 
     const SinginBackendCall = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/signup", {
+            const response = await axios.post("https://shoppr.onrender.com/api/v1/signup", {
                 name: signupInputs.name,
                 email: signupInputs.email,
                 phone_no: signupInputs.phone_no,

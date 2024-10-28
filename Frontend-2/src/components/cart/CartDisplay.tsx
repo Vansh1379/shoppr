@@ -31,7 +31,7 @@ export const CartDisplay = () => {
     useEffect(() => {
         const getCartId = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/cart/cartid/${id}`);
+                const response = await axios.get(`https://shoppr.onrender.com/api/v1/cart/cartid/${id}`);
 
                 if (response) {
                     setCartId(response.data.cartId.id);
@@ -51,7 +51,7 @@ export const CartDisplay = () => {
     useEffect(() => {
         const getProductsData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/cart/cartItem/${cartId}`);
+                const response = await axios.get(`https://shoppr.onrender.com/api/v1/cart/cartItem/${cartId}`);
 
                 if (response) {
                     setCartItems(response.data.cartItems);
@@ -72,7 +72,7 @@ export const CartDisplay = () => {
         const getProductDetails = async () => {
             try {
                 const productPromise = cartItem.map(items =>
-                    axios.get(`http://localhost:3000/api/v1/pro/product/${items.productId}`)
+                    axios.get(`https://shoppr.onrender.com/api/v1/pro/product/${items.productId}`)
                 );
 
                 const productResponse = await Promise.all(productPromise);

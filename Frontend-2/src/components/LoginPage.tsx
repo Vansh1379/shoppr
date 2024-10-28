@@ -33,7 +33,7 @@ export const LoginPage = () => {
 
     const handleLoginCall = async () => {
         try {
-            const respnonse = await axios.post("http://localhost:3000/api/v1/login", {
+            const respnonse = await axios.post("https://shoppr.onrender.com/api/v1/login", {
                 email: loginInputs.email,
                 password: loginInputs.password,
             });

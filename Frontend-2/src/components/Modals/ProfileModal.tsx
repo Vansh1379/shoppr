@@ -48,7 +48,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
         const fetchUserDetails = async () => {
             if (userid) {
                 try {
-                    const response = await axios.get(`http://localhost:3000/api/v1/${userid}`);
+                    const response = await axios.get(`https://shoppr.onrender.com/api/v1/${userid}`);
                     setUserDetails(response.data.data);
                 } catch (error) {
                     console.error(`Error fetching user details: ${error}`);

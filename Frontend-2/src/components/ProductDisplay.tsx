@@ -39,7 +39,7 @@ export const Product = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: "http://localhost:3000/api/v1/pro/product",
+                    url: "https://shoppr.onrender.com/api/v1/pro/product",
                 });
 
                 if (response.data.getProduct) {

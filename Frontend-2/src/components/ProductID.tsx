@@ -72,10 +72,10 @@ export const ProductID = ({ id }: ProductIdProp) => {
       const decodeToken = jwtDecode<CustomJwtPayload>(token);
       const userId = decodeToken.data;
 
-      const responseForCartId = await axios.get(`http://localhost:3000/api/v1/cart/cartid/${userId}`);
+      const responseForCartId = await axios.get(`https://shoppr.onrender.com/api/v1/cart/cartid/${userId}`);
       const cartId = responseForCartId.data.cartId.id;
 
-      const response = await axios.post('http://localhost:3000/api/v1/cart/', {
+      const response = await axios.post('https://shoppr.onrender.com/api/v1/cart/', {
         cartId: cartId,
         productId: id,
       });
@@ -93,7 +93,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
     const getProduct = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/pro/product/${id}`);
+        const response = await axios.get(`https://shoppr.onrender.com/api/v1/pro/product/${id}`);
 
         // console.log('Full response:', response.data);
 
