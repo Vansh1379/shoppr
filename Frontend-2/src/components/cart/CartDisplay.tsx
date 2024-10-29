@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import CartSkeleton from '../Skeletons/CartSkeleton';
-
+import EmptyCartModal from '../Modals/EmptyCartModal';
 
 interface CartItem {
     productId: number
@@ -25,14 +25,13 @@ export const CartDisplay = () => {
     const [cartId, setCartId] = useState<number | null>(null);
     const [cartItem, setCartItems] = useState<CartItem[]>([]);
     const [product, setProduct] = useState<Product[]>([]);
-    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false);    
+    const [isCartItemsLoaded, setIsCartItemsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const getCartId = async () => {
             try {
                 const response = await axios.get(`https://shoppr.onrender.com/api/v1/cart/cartid/${id}`);
-
                 if (response) {
                     setCartId(response.data.cartId.id);
                 } else {
@@ -52,7 +51,6 @@ export const CartDisplay = () => {
         const getProductsData = async () => {
             try {
                 const response = await axios.get(`https://shoppr.onrender.com/api/v1/cart/cartItem/${cartId}`);
-
                 if (response) {
                     setCartItems(response.data.cartItems);
                     setIsCartItemsLoaded(true);
@@ -87,6 +85,8 @@ export const CartDisplay = () => {
 
         if (isCartItemsLoaded && cartItem.length > 0) {
             getProductDetails();
+        } else if (isCartItemsLoaded && cartItem.length === 0) {
+            setIsLoading(false);
         }
     }, [cartItem, isCartItemsLoaded]);
 
@@ -98,12 +98,19 @@ export const CartDisplay = () => {
         return <CartSkeleton />;
     }
 
+    // Show empty cart modal when there are no items
+    if (!isLoading && (!product.length || !cartItem.length)) {
+        return <EmptyCartModal />;
+    }
+
     return (
         <div>
             {product.map((product) => (
                 <span key={product.id} className='bg-gray-800'>
                     <div className='flex border rounded-lg border-gray-300 py-4 mx-5 w-[850px] mt-3 cursor-pointer'>
-                        <div className='pl-10'><img src={product.img} alt="hello" className='h-[130px] w-[180px]' /></div>
+                        <div className='pl-10'>
+                            <img src={product.img} alt="hello" className='h-[130px] w-[180px]' />
+                        </div>
                         <div className='pl-5'>
                             <div className='text-base font-medium text-gray-600'>{product.name}</div>
                             <div className='text-sm mt-2 text-gray-400 font-medium font-sans'>{product.quantity}</div>
@@ -114,8 +121,17 @@ export const CartDisplay = () => {
                             </div>
                             <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
                             <div className='flex'>
-                                <div className='pl-72'><button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>Order now</button></div>
-                                <div className='text-red-400 text-lg font-sans font-medium pl-7 pr-3' onClick={handleRemoveCartItem}>REMOVE</div>
+                                <div className='pl-72'>
+                                    <button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>
+                                        Order now
+                                    </button>
+                                </div>
+                                <div
+                                    className='text-red-400 text-lg font-sans font-medium pl-7 pr-3'
+                                    onClick={handleRemoveCartItem}
+                                >
+                                    REMOVE
+                                </div>
                             </div>
                         </div>
                     </div>
