@@ -2,6 +2,7 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, Toaster } from 'sonner';
 
 interface ProfileModalProps {
     onClose: () => void;
@@ -24,6 +25,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
     const [UserDetails, setUserDetails] = useState<UserDetails>();
 
     const handleOrdersClick = () => {
+        toast.success('Redirecting to orders...', {
+            style: {
+                background: '#22c55e',
+                color: 'white',
+            }
+        });
         navigate('/orders');
         onClose();
     };
@@ -55,20 +62,27 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
                 }
             }
         };
-        // console.log(UserDetails);
 
         fetchUserDetails();
     }, [userid]);
 
     const handleLogoutLogic = (): void => {
         localStorage.clear();
-        navigate('/');
-        alert("Logged Out Succesfully");
+        toast.error('Logged out successfully', {
+            style: {
+                background: '#ef4444',
+                color: 'white',
+            }
+        });
+        setTimeout(() => {
+            navigate('/');
+        }, 1000);
     }
 
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <Toaster position="top-right" richColors />
             <div className="bg-white rounded-lg shadow-lg p-5 w-[600px] mx-4">
                 <div className="flex justify-between items-center mb-4 border-b border-pink-100 pb-3">
                     <h2 className="text-lg font-semibold text-gray-800">My Profile</h2>
@@ -132,6 +146,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
                     </button>
                 </div>
             </div>
+            <Toaster />
         </div>
     );
 };
