@@ -5,8 +5,8 @@ import ProductSkeleton from "./Skeletons/ProductIDSkeleton";
 import { ProductNotFound } from "./Modals/ProductNotFound";
 import { LoginNavbar } from "./LoginNavbar";
 import { jwtDecode, JwtPayload } from "jwt-decode";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Toaster, toast } from "sonner";
 
 interface Rating {
   rating: number;
@@ -64,7 +64,13 @@ export const ProductID = ({ id }: ProductIdProp) => {
 
     // if user is logged in then only they can add to cart
     if (!token) {
-      alert('please login befor adding to cart');
+      toast.error('Please! login First', {
+        style: {
+          background: '#ef4444',
+          color: 'white',
+        },
+        duration: 3000
+      });
       return;
     }
 
@@ -85,7 +91,13 @@ export const ProductID = ({ id }: ProductIdProp) => {
       notify();
     } catch (error) {
       console.error(`This is the error in AddToCart function ${error}`);
-      toast.error("Error Backend is down!");
+      toast.error('Backend is Down', {
+        style: {
+          background: '#ef4444',
+          color: 'white',
+        },
+        duration: 3000
+      });
     }
   }
 
@@ -105,7 +117,15 @@ export const ProductID = ({ id }: ProductIdProp) => {
         }
       } catch (error) {
         console.error('Error fetching product:', error);
-        toast.error("Error Backend is down!");
+
+        toast.error('Error While fetching products', {
+          style: {
+            background: '#ef4444',
+            color: 'white',
+          },
+          duration: 3000
+        });
+
       } finally {
         setLoading(false);
       }
@@ -127,6 +147,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
 
   return (
     <div className="flex flex-col min-h-screen ">
+      <Toaster position="top-center" richColors />
       <div className="bg-white">
         {isLoggedIn ? <LoginNavbar /> : <Navbar />}
       </div>
@@ -174,7 +195,6 @@ export const ProductID = ({ id }: ProductIdProp) => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

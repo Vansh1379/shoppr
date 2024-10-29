@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import shoppr from "../assets/Shoppr.png"
 import { useNavigate } from "react-router-dom";
 import { SigninModal } from "./Modals/SigninModal";
+import { toast, Toaster } from 'sonner';
 
 
 
@@ -19,13 +20,23 @@ export const Navbar: React.FC = () => {
     }
 
     const redirect3 = () => {
-        navigate('/home');
-        alert("Please Login First");
+        const errorToast = toast.error('Please Login First', {
+            style: {
+                background: '#ef4444',
+                color: 'white',
+            },
+            duration: 3000
+        });
+        setTimeout(() => {
+            navigate('/home');
+        }, 1000);
+        toast.dismiss(errorToast);
     }
 
     return (
         <>
             <div className="border-b-4 border-gray-300 flex items-center h-16 ">
+                <Toaster position="top-center" richColors />
                 <div className="flex items-center ml-10 ">
                     <div onClick={redirect2} className="cursor-pointer">
                         <img src={shoppr} alt="Shoppr" className='h-24' />
