@@ -1,6 +1,4 @@
-Here’s a separate README for the **Shoppr Backend** repository:
 
----
 
 # Shoppr Backend
 
@@ -107,9 +105,13 @@ The backend is deployed on Render, providing stable and reliable access for the 
 
 For any questions or feedback, please reach out:
 
-- **Email**: [Your Email Address]
-- **GitHub**: [Your GitHub Profile]
+- **Email**: vanshkalra1379@gmail.com
 
+key learning 
+
+-one to one realtionship with cart of user a user can have only one cart 
+
+- one to many realtionships in schema a user acan have more than one orders thart's why we have use order[] here and cart ther ... 
+![alt text](image.png)
 ---
 
-Let me know if you'd like to add any additional details!

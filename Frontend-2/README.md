@@ -1,7 +1,3 @@
-Here’s a separate README for the **Shoppr Frontend** repository:
-
----
-
 # Shoppr Frontend
 
 This is the frontend of **Shoppr**, an e-commerce platform that allows users to browse products, manage their cart, and complete secure purchases. Built with React, Vite, TypeScript, and Tailwind CSS, the frontend integrates with the backend for authentication, product management, and payment processing.
@@ -102,9 +98,4 @@ The frontend is deployed on Vercel and accessible at [Shoppr Frontend](https://s
 
 For any questions or feedback, please reach out:
 
-- **Email**: [Your Email Address]
-- **GitHub**: [Your GitHub Profile]
-
----
-
-Let me know if you'd like any adjustments!
+- **Email**: vanshkalra1379@gmail.com

@@ -1,9 +1,3 @@
-# Full-Stack-web-app
-
-Thanks for sharing the deployment details! Here’s the updated README with the deployment links:
-
----
-
 # Shoppr
 
 **Shoppr** is a modern e-commerce platform where users can explore, add to cart, and purchase a variety of products securely. The platform includes full authentication and authorization, secure payments, and in-app notifications for a smooth user experience.
@@ -189,16 +183,6 @@ The backend follows a service-oriented architecture with a layered structure:
 
 For any questions or feedback, please reach out:
 
-- **Email**: [Your Email Address]
-- **GitHub**: [Your GitHub Profile]
+- **Email** vanshkalra1379@gmail.com
 
 ---
-
-Let me know if you’d like further tweaks!
-
-key learning 
-
--one to one realtionship with cart of user a user can have only one cart 
-
-- one to many realtionships in schema a user acan have more than one orders thart's why we have use order[] here and cart ther ... 
-![alt text](image.png)
