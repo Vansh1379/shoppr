@@ -94,49 +94,92 @@ export const CartDisplay = () => {
         // Implement remove functionality
     }
 
+    const calculateTotal = (): number => {
+        return product.reduce((total, item) => total + item.price, 0);
+    }
+
+    const calculateDiscount = (): number => {
+        return product.reduce((total, item) => {
+            const discount = item.orignalPrice ? item.orignalPrice - item.price : 0;
+            return total + discount;
+        }, 0);
+    }
+
     if (isLoading) {
         return <CartSkeleton />;
     }
 
-    // Show empty cart modal when there are no items
     if (!isLoading && (!product.length || !cartItem.length)) {
         return <EmptyCartModal />;
     }
 
     return (
-        <div>
-            {product.map((product) => (
-                <span key={product.id} className='bg-gray-800'>
-                    <div className='flex border rounded-lg border-gray-300 py-4 mx-5 w-[850px] mt-3 cursor-pointer'>
-                        <div className='pl-10'>
-                            <img src={product.img} alt="hello" className='h-[130px] w-[180px]' />
-                        </div>
-                        <div className='pl-5'>
-                            <div className='text-base font-medium text-gray-600'>{product.name}</div>
-                            <div className='text-sm mt-2 text-gray-400 font-medium font-sans'>{product.quantity}</div>
-                            <div className='flex items-center mt-2'>
-                                <div className='text-base font-medium pr-2'>₹{product.price}</div>
-                                <div className='text-sm font-normal text-gray-400 line-through pr-2'>₹{product.orignalPrice}</div>
-                                <div className='text-green-600'>{product.discount}% off</div>
+        <div className="flex  px-4 max-w-7xl mx-auto">
+            <div className="flex-grow">
+                {product.map((product) => (
+                    <span key={product.id} className='bg-gray-800'>
+                        <div className='flex border rounded-lg border-gray-300 py-4 mx-5 w-[900px] mt-3 cursor-pointer'>
+                            <div className='pl-10'>
+                                <img src={product.img} alt="hello" className='h-[130px] w-[180px]' />
                             </div>
-                            <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
-                            <div className='flex'>
-                                <div className='pl-72'>
-                                    <button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>
-                                        Order now
-                                    </button>
+                            <div className='pl-5'>
+                                <div className='text-base font-medium text-gray-600'>{product.name}</div>
+                                <div className='text-sm mt-2 text-gray-400 font-medium font-sans'>{product.quantity}</div>
+                                <div className='flex items-center mt-2'>
+                                    <div className='text-base font-medium pr-2'>₹{product.price}</div>
+                                    <div className='text-sm font-normal text-gray-400 line-through pr-2'>₹{product.orignalPrice}</div>
+                                    <div className='text-green-600'>{product.discount}% off</div>
                                 </div>
-                                <div
-                                    className='text-red-400 text-lg font-sans font-medium pl-7 pr-3'
-                                    onClick={handleRemoveCartItem}
-                                >
-                                    REMOVE
+                                <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
+                                <div className='flex'>
+                                    <div className='pl-72'>
+                                        <button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>
+                                            Order now
+                                        </button>
+                                    </div>
+                                    <div
+                                        className='text-red-400 text-lg font-sans font-medium pl-7 pr-3'
+                                        onClick={handleRemoveCartItem}
+                                    >
+                                        REMOVE
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </span>
+                ))}
+            </div>
+            <div className="w-72 h-fit mt-3 ml-1 sticky top-4">
+                <div className="border border-gray-300 rounded-lg p-6 bg-white shadow-sm">
+                    <h2 className="text-lg font-semibold mb-4 border-b pb-2">Order Summary</h2>
+                    <div className="space-y-3">
+                        <div className="flex justify-between text-gray-600">
+                            <span>Items ({product.length})</span>
+                            <span>₹{calculateTotal()}</span>
+                        </div>
+                        <div className="flex justify-between text-gray-600">
+                            <span>Discount</span>
+                            <span className="text-green-600">- ₹{calculateDiscount()}</span>
+                        </div>
+                        <div className="flex justify-between text-gray-600">
+                            <span>Delivery</span>
+                            <span>Free</span>
+                        </div>
+                        <div className="border-t pt-3 mt-3">
+                            <div className="flex justify-between font-semibold text-lg">
+                                <span>Grand Total</span>
+                                <span>₹{calculateTotal()}</span>
+                            </div>
+                            <div className="text-green-600 text-sm">You saved ₹{calculateDiscount()}</div>
+                        </div>
+                        <button className="w-full bg-pink-500 text-white py-3 rounded-lg mt-4 hover:bg-pink-600 transition-colors">
+                            Proceed to Checkout
+                        </button>
                     </div>
-                </span>
-            ))}
+                </div>
+            </div>
         </div>
     );
 };
+
+export default CartDisplay;
