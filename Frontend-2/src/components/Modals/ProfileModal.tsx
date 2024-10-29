@@ -82,7 +82,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <Toaster position="top-right" richColors />
+            <Toaster position="top-center" richColors />
             <div className="bg-white rounded-lg shadow-lg p-5 w-[600px] mx-4">
                 <div className="flex justify-between items-center mb-4 border-b border-pink-100 pb-3">
                     <h2 className="text-lg font-semibold text-gray-800">My Profile</h2>
@@ -146,7 +146,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ onClose }) => {
                     </button>
                 </div>
             </div>
-            <Toaster />
         </div>
     );
 };
