@@ -12,17 +12,17 @@ export const LandingCompo = () => {
     return (
         <div className="bg-gray-100 max-w-screen overflow-hidden">
             <div className="flex items-center justify-evenly px-10 py-9 rounded-lg">
-                <div onClick={Redirect}>
+                <div onClick={Redirect} className="cursor-pointer">
                     <img src={img1} alt="image1" />
                 </div>
-                <div onClick={Redirect}>
+                <div onClick={Redirect} className="cursor-pointer">
                     <img src={img2} alt="image2" />
                 </div>
-                <div onClick={Redirect}>
+                <div onClick={Redirect} className="cursor-pointer">
                     <img src={img3} alt="image3" />
                 </div>
             </div>
-            <div onClick={Redirect}>
+            <div onClick={Redirect} >
                 <img src={navratre} alt="navrate sale" />
             </div>
         </div>

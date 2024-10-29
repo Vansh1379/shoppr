@@ -31,13 +31,13 @@ export const LandingProduct = () => {
             <div className="mt-10 ml-20">
                 <Product />
             </div>
-            <div className="mt-10">
+            <div className="mt-10 cursor-pointer">
                 <img src={discount} alt="discount" />
             </div>
-            <div onClick={redirect} className="mt-2">
+            <div onClick={redirect} className="mt-2 cursor-pointer">
                 <img src={img4} alt="long image of products" />
             </div>
-            <div onClick={redirect} className="px-5 mt-3">
+            <div onClick={redirect} className="px-5 mt-3 cursor-pointer">
                 <img src={img5} alt="discount image" />
             </div>
         </div>

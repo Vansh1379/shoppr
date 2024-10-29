@@ -20,6 +20,7 @@ export const Navbar: React.FC = () => {
 
     const redirect3 = () => {
         navigate('/home');
+        alert("Please Login First");
     }
 
     return (

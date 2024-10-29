@@ -138,7 +138,7 @@ export const ProductID = ({ id }: ProductIdProp) => {
               <img
                 src={product.img}
                 alt={product.name}
-                className="w-full h-auto object-contain max-h-80"
+                className="w-full h-auto object-contain max-h-80 cursor-move"
               />
             </div>
             <div className="w-3/5">
