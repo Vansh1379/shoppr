@@ -1,11 +1,12 @@
 # Full-Stack-web-app
-Here’s a draft README for **Shoppr**:
+
+Thanks for sharing the deployment details! Here’s the updated README with the deployment links:
 
 ---
 
 # Shoppr
 
-**Shoppr** is a customizable e-commerce platform designed to showcase and sell pre-built e-commerce website templates. Clients can explore the available UIs, view prices, and make payments to hire a developer for customization services.
+**Shoppr** is a modern e-commerce platform where users can explore, add to cart, and purchase a variety of products securely. The platform includes full authentication and authorization, secure payments, and in-app notifications for a smooth user experience.
 
 ## Table of Contents
 
@@ -17,25 +18,29 @@ Here’s a draft README for **Shoppr**:
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
 - [Contact](#contact)
 
 ## Project Overview
 
-Shoppr provides a convenient way for clients to select from pre-designed e-commerce templates, make payments, and receive customization services from a developer. This project involves a full-stack architecture built with TypeScript, Prisma, and React, and integrates payment and notification systems for a seamless user experience.
+Shoppr provides a complete online shopping experience where users can browse products, manage a cart, and make purchases. The platform uses JWT for secure authentication, Razorpay for payment processing, and integrates in-app notifications for an interactive and user-friendly experience.
 
 ## Features
 
-- **E-commerce Template Display**: Showcase multiple e-commerce templates with individual price tags.
-- **Authentication**: Sign-in functionality with email notifications.
-- **Payments**: Integrated Razorpay for secure payment processing.
-- **Notifications**: Toast notifications using Sooner for in-app feedback.
-- **Customizable UI**: Clients can choose templates and customize them according to their requirements.
+- **Product Browsing**: View a catalog of products with detailed information.
+- **Authentication**: Secure sign-in and sign-up using JWT.
+- **Cart Management**: Add, update, or remove items in the cart.
+- **Checkout**: Integrated Razorpay for secure payment processing.
+- **Notifications**: Real-time toast notifications using Sooner.
+- **Order Confirmation**: Users receive confirmation upon successful purchase.
 
 ## Tech Stack
 
 ### Frontend
 - **Framework**: React (with Vite)
 - **Styling**: Tailwind CSS
+- **Routing**: React Router DOM
+- **HTTP Requests**: Axios
 - **Notifications**: Sooner
 - **Language**: TypeScript
 
@@ -43,6 +48,7 @@ Shoppr provides a convenient way for clients to select from pre-designed e-comme
 - **Framework**: Node.js with Express
 - **Database**: PostgreSQL
 - **ORM**: Prisma
+- **Authentication**: JWT (JSON Web Token)
 - **Payments**: Razorpay
 - **Email Notifications**: Nodemailer
 - **Language**: TypeScript
@@ -50,8 +56,6 @@ Shoppr provides a convenient way for clients to select from pre-designed e-comme
 ## File Structure
 
 ### Frontend
-
-The frontend code is organized as follows:
 
 ```plaintext
 Frontend
@@ -75,8 +79,6 @@ Frontend
 
 ### Backend
 
-The backend code is structured as follows:
-
 ```plaintext
 Backend
 │
@@ -97,21 +99,25 @@ Backend
 
 ### Frontend
 
-The frontend is built using React with Vite for a faster development experience. The application is organized into reusable components, hooks, and pages to ensure modularity and scalability. Each major feature (like cart, modals, and skeleton loaders) is encapsulated within its own folder for easier maintenance.
+The frontend is built with React and Vite for a quick development cycle and better performance. Key components include:
 
-- **Components**: Organized by functionality, including Cart, Modals, Skeletons, and other reusable elements.
-- **Pages**: Includes main pages for the landing, product display, and authentication.
-- **Toast Notifications**: Implemented using Sooner for real-time feedback to the user.
+- **Product Display**: Components to display products, filtering options, and product details.
+- **Cart Management**: A dedicated cart component to view, add, update, or remove products.
+- **Authentication**: JWT-based authentication handled in the frontend, with protected routes for secure access.
+- **Routing**: React Router DOM enables navigation across pages, such as product details, cart, and checkout.
+- **HTTP Requests**: Axios is used for API communication, handling requests for product data, authentication, and order processing.
+- **Notifications**: In-app notifications powered by Sooner for real-time updates on actions.
 
 ### Backend
 
-The backend is structured with a service-oriented architecture, where each component is divided into layers for better organization and separation of concerns. Key elements include:
+The backend follows a service-oriented architecture with a layered structure:
 
-- **Controllers**: Manage HTTP requests, calling the necessary services and responding to the client.
-- **Services**: Handle core business logic and interact with the Prisma ORM to access the PostgreSQL database.
-- **Middlewares**: Ensure secure and validated requests, particularly for authentication and data validation.
-- **Razorpay Integration**: Provides a secure way to handle payments, ensuring a smooth transaction process for users.
-- **Email Notifications**: Utilizes Nodemailer to send emails on account creation, enhancing user engagement.
+- **Controllers**: Handle HTTP requests and manage responses.
+- **Services**: Contain the core business logic for operations like managing users, products, cart, and orders.
+- **Middlewares**: Handle authentication using JWT and validate user inputs for secure transactions.
+- **Database**: Managed by Prisma ORM connected to a PostgreSQL database for data persistence.
+- **Payments**: Razorpay is used for handling secure payments, with an order ID generated and verified upon successful transactions.
+- **Email Notifications**: Nodemailer sends out account and order confirmation emails to enhance user engagement.
 
 ## Setup and Installation
 
@@ -131,7 +137,7 @@ The backend is structured with a service-oriented architecture, where each compo
 
 3. **Configure Environment Variables**
 
-   - Set up the `.env` files in both the frontend and backend, including variables for database connection, email settings, and Razorpay keys.
+   - Set up the `.env` files in both the frontend and backend with your environment-specific configurations (database credentials, JWT secret, Razorpay keys, email settings, etc.).
 
 4. **Run Migrations (Backend)**
 
@@ -155,33 +161,40 @@ The backend is structured with a service-oriented architecture, where each compo
 
 ## Usage
 
-- **Authentication**: Users can sign up and receive a welcome email on successful account creation.
-- **Browse Templates**: Users can view available templates with pricing information.
-- **Payments**: Users can make payments through Razorpay to initiate customization.
-- **Toast Notifications**: Notifications will appear in-app to guide users through actions and inform them of successes or errors.
+- **Sign Up / Sign In**: Users can create an account or sign in. Upon signing in, a JWT token is issued for secure access.
+- **Browse Products**: View available products, with details and filtering options.
+- **Cart Management**: Add products to the cart, adjust quantities, or remove items as needed.
+- **Checkout**: Securely complete purchases through Razorpay.
+- **Notifications**: Receive real-time feedback on actions such as adding to the cart, signing in, or completing a purchase.
 
 ## API Endpoints
 
-| Endpoint               | Method | Description                            |
-|------------------------|--------|----------------------------------------|
-| `/api/auth/signup`     | POST   | Registers a new user                  |
-| `/api/auth/signin`     | POST   | Authenticates a user                  |
-| `/api/products`        | GET    | Retrieves a list of available products|
-| `/api/products/:id`    | GET    | Retrieves details of a specific product|
-| `/api/cart`            | POST   | Adds items to the cart                |
-| `/api/cart`            | GET    | Gets items in the user’s cart         |
-| `/api/checkout`        | POST   | Initiates Razorpay checkout for payment|
+| Endpoint               | Method | Description                               |
+|------------------------|--------|-------------------------------------------|
+| `/api/auth/signup`     | POST   | Registers a new user                      |
+| `/api/auth/signin`     | POST   | Authenticates a user and provides a JWT   |
+| `/api/products`        | GET    | Retrieves a list of available products    |
+| `/api/products/:id`    | GET    | Retrieves details of a specific product   |
+| `/api/cart`            | POST   | Adds items to the cart                    |
+| `/api/cart`            | GET    | Retrieves items in the user’s cart        |
+| `/api/checkout`        | POST   | Initiates Razorpay checkout for payment   |
+| `/api/orders`          | GET    | Retrieves order history for the user      |
+
+## Deployment
+
+- **Frontend**: Deployed on Vercel at [Shoppr Frontend](https://shoppr-beta.vercel.app)
+- **Backend**: Deployed on Render
 
 ## Contact
 
-For questions or feedback, feel free to reach out:
+For any questions or feedback, please reach out:
 
 - **Email**: [Your Email Address]
 - **GitHub**: [Your GitHub Profile]
 
 ---
 
-Let me know if you’d like to add or modify any details!
+Let me know if you’d like further tweaks!
 
 key learning 
 
