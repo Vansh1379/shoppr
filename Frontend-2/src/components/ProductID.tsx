@@ -87,7 +87,14 @@ export const ProductID = ({ id }: ProductIdProp) => {
       });
 
       console.log(response);
-      // alert('THe product has been added to your cart Thanks for shooping');
+      toast.success('Added to cart sucessfully!', {
+        style: {
+          background: '#22c55e',
+          color: 'white',
+        },
+        description: 'Nice! keep shooping',
+        duration: 2000
+      });
       notify();
     } catch (error) {
       console.error(`This is the error in AddToCart function ${error}`);
