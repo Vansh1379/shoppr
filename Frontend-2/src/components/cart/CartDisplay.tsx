@@ -133,12 +133,12 @@ export const CartDisplay = () => {
                                 <div className='text-gray-600 mt-1 font-medium'>Catageory :- {product.catageory}</div>
                                 <div className='flex'>
                                     <div className='pl-72'>
-                                        <button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:border-2 border-black transition ease-in duration-1000'>
+                                        <button className='bg-pink-500 px-20 py-1 rounded-2xl text-white hover:bg-pink-600 transition-colors'>
                                             Order now
                                         </button>
                                     </div>
                                     <div
-                                        className='text-red-400 text-lg font-sans font-medium pl-7 pr-3'
+                                        className='text-red-400 text-lg font-sans hover:text-red-600 font-medium pl-7 pr-3'
                                         onClick={handleRemoveCartItem}
                                     >
                                         REMOVE

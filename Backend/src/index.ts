@@ -1,7 +1,5 @@
 import bodyParser from "body-parser";
 import express from "express";
-import { Request } from "express";
-import { Response } from "express";
 import mainRouter from "./routes/mainRouter"
 import cors from "cors"
 
