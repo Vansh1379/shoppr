@@ -2,7 +2,9 @@ import { NextFunction, Request } from "express"
 import { Response } from "express"
 import { loginValidation, signupValidation } from "../services/inputValidation";
 import { PrismaClient } from "@prisma/client";
+
 import jwt from 'jsonwebtoken';
+import { sendWelcomeEmail } from "../middlewares/nodemailer";
 
 const prisma = new PrismaClient();
 
@@ -56,6 +58,8 @@ export const signupAuth = async (req: Request, res: Response, next: NextFunction
         const token = jwt.sign({
             data: newUser.id
         }, 'secret', { expiresIn: '5h' });
+
+        await sendWelcomeEmail(createPayload.email);
 
         res.status(201).json({
             token,

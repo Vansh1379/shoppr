@@ -16,6 +16,7 @@ exports.UserDetail = exports.loginLogic = exports.signupAuth = void 0;
 const inputValidation_1 = require("../services/inputValidation");
 const client_1 = require("@prisma/client");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const nodemailer_1 = require("../middlewares/nodemailer");
 const prisma = new client_1.PrismaClient();
 // ...................................................................................................................................
 const signupAuth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,6 +64,7 @@ const signupAuth = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const token = jsonwebtoken_1.default.sign({
             data: newUser.id
         }, 'secret', { expiresIn: '5h' });
+        yield (0, nodemailer_1.sendWelcomeEmail)(createPayload.email);
         res.status(201).json({
             token,
             user: {

@@ -24,6 +24,7 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@types/cors": "^2.8.17",
+    "@types/nodemailer": "^6.4.16",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
