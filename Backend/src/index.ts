@@ -2,13 +2,16 @@ import bodyParser from "body-parser";
 import express from "express";
 import mainRouter from "./routes/mainRouter"
 import cors from "cors"
+import dotenv from 'dotenv';
 
-const port = 3000;                  
+dotenv.config();
+const port = 3001;
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1", mainRouter);
 
