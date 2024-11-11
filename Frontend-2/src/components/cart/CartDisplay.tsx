@@ -8,6 +8,12 @@ interface CartItem {
     productId: number
 }
 
+declare global {
+    interface Window {
+        Razorpay: any; // or a more specific type if available
+    }
+}
+
 interface Product {
     id: number;
     name: string;
@@ -97,6 +103,7 @@ export const CartDisplay = () => {
     const calculateTotal = (): number => {
         return product.reduce((total, item) => total + item.price, 0);
     }
+    const total = calculateTotal();
 
     const calculateDiscount = (): number => {
         return product.reduce((total, item) => {
@@ -113,9 +120,44 @@ export const CartDisplay = () => {
         return <EmptyCartModal />;
     }
 
-    const HandlePayments = async()=>{
-        const response = await axios.post("https://shoppr.onrender.com/api/v1/order/razorpay")
-    }
+    const HandlePayments = async (e: React.FormEvent) => {
+        try {
+            const response = await axios.post(
+                "http://localhost:3001/api/v1/order/razorpay",
+                { amount: total, currency: "INR" },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log(response.data);
+
+            const options = {
+                key: "rzp_test_PxcBWpm7asqR5l",
+                amount: total,
+                currency: "INR",
+                name: "Shoppr",
+                description: "Test Transaction",
+                image: "https://example.com/your_logo",
+                order_id: response.data.order.id,
+                callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+                prefill: {
+                    name: "Gaurav Kumar",
+                    email: "gaurav.kumar@example.com",
+                    contact: "9000090000"
+                },
+                notes: {
+                    address: "Razorpay Corporate Office"
+                },
+                theme: {
+                    color: "#3399cc"
+                }
+            };
+            var rzp1 = new window.Razorpay(options);
+            rzp1.open();
+            e.preventDefault();
+        } catch (err) {
+            console.error(err); // Handle errors
+        }
+    };
 
     return (
         <div className="flex  px-4 max-w-7xl mx-auto">
