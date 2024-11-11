@@ -123,7 +123,7 @@ export const CartDisplay = () => {
     const HandlePayments = async (e: React.FormEvent) => {
         try {
             const response = await axios.post(
-                "https://shoppr.onrender.com//api/v1/order/razorpay",
+                "https://shoppr.onrender.com/api/v1/order/razorpay",
                 { amount: total, currency: "INR" },
                 { headers: { "Content-Type": "application/json" } }
             );
