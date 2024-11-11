@@ -113,6 +113,10 @@ export const CartDisplay = () => {
         return <EmptyCartModal />;
     }
 
+    const HandlePayments = async()=>{
+        const response = await axios.post("https://shoppr.onrender.com/api/v1/order/razorpay")
+    }
+
     return (
         <div className="flex  px-4 max-w-7xl mx-auto">
             <div className="flex-grow">
@@ -172,7 +176,7 @@ export const CartDisplay = () => {
                             </div>
                             <div className="text-green-600 text-sm">You saved ₹{calculateDiscount()}</div>
                         </div>
-                        <button className="w-full bg-pink-500 text-white py-3 rounded-lg mt-4 hover:bg-pink-600 transition-colors">
+                        <button className="w-full bg-pink-500 text-white py-3 rounded-lg mt-4 hover:bg-pink-600 transition-colors" onClick={HandlePayments}>
                             Proceed to Checkout
                         </button>
                     </div>
