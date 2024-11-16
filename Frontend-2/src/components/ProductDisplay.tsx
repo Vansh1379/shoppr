@@ -35,7 +35,7 @@ export const Product = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            setLoading(true); // Ensure loading is true when fetching starts
+            setLoading(true); 
             try {
                 const response = await axios({
                     method: 'get',
