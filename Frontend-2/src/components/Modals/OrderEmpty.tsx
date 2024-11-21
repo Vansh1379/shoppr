@@ -23,6 +23,7 @@ const NoOrdersModal = () => {
                 </p>
                 <div className="flex space-x-3">
                     <button
+                        onClick={handleCancel}
                         className="flex-1 py-2 border border-pink-500 text-pink-500 
                        rounded-lg hover:bg-pink-50 transition-colors"
                     >
