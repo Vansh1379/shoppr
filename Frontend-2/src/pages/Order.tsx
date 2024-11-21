@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { LoginNavbar } from "../components/LoginNavbar";
 import { Navbar } from "../components/Navbar";
 import LoginReq from "../components/Modals/LoginReq";
-import OrderEmpty from "../components/Modals/OrderEmpty";
 import NoOrdersModal from "../components/Modals/OrderEmpty";
 
 export const Order = () => {
