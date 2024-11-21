@@ -7,6 +7,7 @@ import { Product } from './pages/Product';
 import { ProductId } from './pages/ProductId';
 import { Cart } from './pages/Cart';
 import NotFoundModal from './components/Modals/PageNotFound';
+import { Order } from './pages/Order';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           <Route path='/home' element={<LandingPage />} />
           <Route path='product' element={<Product />} />
           <Route path='/product/:id' element={<ProductId />} />
-          <Route path='/cart/:id' element={<Cart/>} />
+          <Route path='/cart/:id' element={<Cart />} />
+          <Route path='/orders' element={<Order />} />
           <Route path='*' element={<NotFoundModal />} />
         </Routes>
       </BrowserRouter>
