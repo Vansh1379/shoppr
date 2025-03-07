@@ -5,7 +5,7 @@ export const Login = () => {
   useScrollbarStyles();
   return (
     <div className="bg-gray-200 overflow-hidden">
-        <LoginPage />
+            <LoginPage />
     </div>
   )
 }
